@@ -25,15 +25,10 @@ function App() {
     api.delete(`/repositories/${id}`)
   }
 
-  async function handleAddLikes (id) {
-    api.post(`/repositories/${id}/like`)
-  }
-  
-
   return (
     <div>
       <ul data-testid="repository-list">
-        { repositories.map(repository => <li key={repository.id}><p>Title: { repository.title } <span>Likes: { repository.likes } <button onClick={()=>handleAddLikes(repository.id)}>Curtir</button> </span> </p> <button onClick={()=>handleRemoveRepository(repository.id)}>Apagar</button></li>) }
+        { repositories.map(repository => <li key={repository.id}>Title: { repository.title } <button onClick={()=>handleRemoveRepository(repository.id)}>Apagar</button></li>) }
       </ul>
 
       <button onClick={handleAddRepository}>Adicionar</button>
