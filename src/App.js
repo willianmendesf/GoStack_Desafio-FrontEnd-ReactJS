@@ -6,10 +6,8 @@ function App() {
   const [repositories, setRepositories] = useState([])
 
   useEffect(() => {
-    api.get('/repositories').then(response => {
-      setRepositories(response.data)
-    })
-  }, [repositories])
+    api.get('/repositories').then(response => setRepositories(response.data))
+  })
 
   async function handleAddRepository() {
     const response = await api.post('/repositories', {
