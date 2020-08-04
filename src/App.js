@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     api.get('/repositories').then(response => setRepositories(response.data))
-  })
+  }, [])
 
   async function handleAddRepository() {
     const response = await api.post('/repositories', {
@@ -20,15 +20,18 @@ function App() {
   }
 
   async function handleRemoveRepository(id) {
+    const findIndex = repositories.findIndex(item => item.id === id)
+    const repository = repositories.splice(findIndex, 1)
+    setRepositories([...repositories])
     api.delete(`/repositories/${id}`)
   }
 
   return (
     <div>
+      <button onClick={handleAddRepository}>Adicionar</button>
       <ul data-testid="repository-list">
         { repositories.map(repository => <li key={repository.id}> {repository.title} <button onClick={()=>handleRemoveRepository(repository.id)}>Remover</button></li>) }
       </ul>
-      <button onClick={handleAddRepository}>Adicionar</button>
     </div>
   );
 }
